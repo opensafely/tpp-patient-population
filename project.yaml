@@ -1,8 +1,12 @@
 version: '4.0'
 
 actions:
-  generate_dataset:
-    run: ehrql:v1 generate-dataset analysis/dataset_definition.py --output output/dataset.csv.gz
+  extract_population_size:
+    run: >
+      sqlrunner:latest
+        --output output/population_size.csv
+        --dummy-data-file analysis/dummy.csv
+        analysis/extract_population_size.sql
     outputs:
-      highly_sensitive:
-        dataset: output/dataset.csv.gz
+      moderately_sensitive:
+        rows: output/population_size.csv
