@@ -6,7 +6,25 @@ actions:
       sqlrunner:latest
         --output output/population_size.csv
         --dummy-data-file analysis/dummy.csv
-        analysis/extract_population_size.sql
+        analysis/extract_population_size_excl_t1oo.sql
     outputs:
       moderately_sensitive:
         rows: output/population_size.csv
+  
+  extract_population_size_including_t1oo:
+    run: >
+      sqlrunner:latest
+        --output checks/population_size_including_t1oo.csv
+        analysis/extract_population_size_incl_t1oo.sql
+    outputs:
+      moderately_sensitive:
+        rows: checks/population_size_including_t1oo.csv
+
+  extract_population_size_with_ehrql:
+    run: >
+      ehrql:v1
+        generate-measures analysis/ehrql_extract_population_size.py
+        --output checks/ehrql_population_size.csv
+    outputs:
+      moderately_sensitive:
+        rows: checks/ehrql_population_size.csv
