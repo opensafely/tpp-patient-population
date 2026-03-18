@@ -1,9 +1,9 @@
-version: '4.0'
+version: '5.0'
 
 actions:
   extract_population_size:
     run: >
-      sqlrunner:latest
+      sqlrunner:v1
         --output output/population_size.csv
         --dummy-data-file analysis/dummy.csv
         analysis/extract_population_size_excl_t1oo.sql
@@ -13,7 +13,7 @@ actions:
   
   extract_population_size_including_t1oo:
     run: >
-      sqlrunner:latest
+      sqlrunner:v1
         --output checks/population_size_including_t1oo.csv
         analysis/extract_population_size_incl_t1oo.sql
     outputs:
