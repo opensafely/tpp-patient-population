@@ -20,6 +20,15 @@ actions:
       moderately_sensitive:
         rows: checks/population_size_including_t1oo.csv
 
+  extract_population_size_with_gp_activation_filtering:
+    run: >
+      sqlrunner:v1
+        --output output/population_size_gp_activation_filtered.csv
+        analysis/extract_population_size_excl_t1oo_gp_activation_filtered.sql
+    outputs:
+      moderately_sensitive:
+        rows: output/population_size_gp_activation_filtered.csv
+
   extract_population_size_with_ehrql:
     run: >
       ehrql:v1
