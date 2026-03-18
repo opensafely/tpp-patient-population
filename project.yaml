@@ -28,3 +28,12 @@ actions:
     outputs:
       moderately_sensitive:
         rows: checks/ehrql_population_size.csv
+
+  extract_population_size_with_ehrql_including_gp_activation_filtering:
+    run: >
+      ehrql:v1
+        generate-measures analysis/ehrql_extract_population_size.py
+        --output checks/ehrql_population_size_with_gp_activation_filtering.csv
+    outputs:
+      moderately_sensitive:
+        rows: checks/ehrql_population_size_with_gp_activation_filtering.csv
