@@ -5,7 +5,10 @@
 -- irrespective of their current activation status. ehrQL additionally filters
 -- relevant GP data based on the end date of the last activated registration.
 SELECT
-    ROUND(COUNT(patient_data.patient_id) / 5, 1) * 5 AS population_size,
+    -- note we divide by a float because dividing int by int in SQL server
+    -- uses integer division, which will always round down. This rounds to the nearest 5,
+    -- which replicates ehrQL's rounding in measures disclosure control
+    CAST(ROUND(COUNT(patient_data.patient_id) / 5.0, 0) * 5 AS INT) AS population_size,
     CONVERT(date, GETUTCDATE()) as date
 FROM (
     SELECT
