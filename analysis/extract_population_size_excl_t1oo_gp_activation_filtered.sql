@@ -5,7 +5,7 @@
 -- irrespective of their current activation status. ehrQL additionally filters
 -- relevant GP data based on the end date of the last activated registration.
 SELECT
-    ROUND(COUNT(acked.Patient_ID) / 5, 1) * 5 AS population_size,
+    ROUND(COUNT(patient_data.patient_id) / 5, 1) * 5 AS population_size,
     CONVERT(date, GETUTCDATE()) as date
 FROM (
     SELECT
@@ -42,4 +42,4 @@ FROM (
         GROUP BY rh2.Patient_ID
     ) unacked
         ON acked.Patient_ID = unacked.Patient_ID
-    )
+    ) patient_data
