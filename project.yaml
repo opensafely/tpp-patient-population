@@ -46,3 +46,22 @@ actions:
     outputs:
       moderately_sensitive:
         rows: checks/ehrql_population_size_with_gp_activation_filtering.csv
+
+  # Temporary actions for debugging: extract patients without measures, and count
+  debug_ehrql_extract_patients:
+    run: >
+      ehrql:v1
+        generate-dataset analysis/debugging/ehrql_extract_population_exists.py
+        --output debugging/ehrql_patients.csv
+    outputs:
+      highly_sensitive:
+        rows: debugging/ehrql_patients.csv
+
+  debug_count_patients:
+    needs:
+      - debug_ehrql_extract_patients
+    run: >
+      python:v2 analysis/debugging/count.py
+    outputs:
+      highly_sensitive:
+        rows: debugging/ehrql_patients_count.csv
