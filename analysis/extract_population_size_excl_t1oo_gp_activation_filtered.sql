@@ -30,6 +30,8 @@ FROM (
         FROM RegistrationHistory rh
         INNER JOIN DirectionsAcknowledged da
             ON rh.Organisation_ID = da.Organisation_ID
+        INNER JOIN Patient p
+            ON rh.Patient_ID = p.Patient_ID
         WHERE rh.Patient_ID NOT IN (SELECT Patient_ID FROM PatientsWithTypeOneDissent)
         GROUP BY rh.Patient_ID
     ) acked
